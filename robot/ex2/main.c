@@ -71,7 +71,7 @@ int main(void)
   hardware_init();
   
   // Registers the register handler callback function
-  radio_add_reg_callback(register_handler);
+  radio_add_reg_callback(register_handler); // when a register is read or written, the function register_handler is called
   
   // Changes the color of the led (first red then green) to show the boot
   // and then say that the module is ready.
