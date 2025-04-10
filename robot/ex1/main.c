@@ -35,5 +35,13 @@ int main(void)
       pause(TEN_MS);
     }
   }
+  """
+  while (1) {
+    set_rgb(0, 127, 0);   // LED verte allumée
+    pause(500);           // pause de 500 ms
+    set_rgb(0, 0, 0);     // LED éteinte
+    pause(500);           // pause de 500 ms
+  }
+  """
   return 0;
 }
