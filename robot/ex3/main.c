@@ -39,7 +39,7 @@ int main(void)
 #include "registers.h"
 
 #define NB_DOF 4
-const uint8_t MOTOR_ADDR[NB_DOF] = {21, 72, 73, 74};
+const uint8_t MOTOR_ADDR[NB_DOF] = TO BE DEFINED; // addresses of the motors
 static int8_t pos[NB_DOF]; // array to store the position of the motors
 
 static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* radio_data)
