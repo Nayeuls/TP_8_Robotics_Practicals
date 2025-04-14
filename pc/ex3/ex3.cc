@@ -16,7 +16,7 @@ void display_multibyte_register(CRemoteRegs& regs, const uint8_t addr)
     cout << (int) len << " bytes: ";
     for (unsigned int i(0); i < len; i++) {
       if (i > 0) cout << ", ";
-      cout << (int) data_buffer[i];
+      cout << (int8_t) data_buffer[i];
     }
     cout << endl;
   } else {
