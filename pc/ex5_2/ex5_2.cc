@@ -21,17 +21,20 @@ int main()
     reboot_head(regs);
   
     regs.set_reg_b(REG8_MODE, IMODE_IDLE); // Set mode to idle
-    while (!kbhit()){
-        // Mode demo
-        regs.set_reg_b(REG8_MODE, IMODE_MOTOR_DEMO); // Set mode to motor demo
+    regs.set_reg_b(REG8_MODE, IMODE_SINMOTOR_DEMO); // Set mode to sin demo
+    float freq = 1.0;
+    float amplitude = 40.0;
+    while (freq != 0) {
+        std::cout << "Enter frequency (0 to stop): ";
+        std::cin >> freq;
+        if (freq != 0) {
+            std::cout << "Enter amplitude: ";
+            std::cin >> amplitude;
+            regs.set_reg_f(REG8_FREQ, freq);
+            regs.set_reg_f(REG8_AMPLITUDE, amplitude);
+        }
     }
-    ext_key();
-    while (!kbhit()){
-        // Mode sin
-        regs.set_reg_b(REG8_MODE, IMODE_MOTOR_SIN); // Set mode to sin demo
 
-        regs.set_reg_b(2, 40*(sin(2*M_PI*time_d())));  // sine wave at 1 Hz (takes rad)
-    }
     regs.close();
     return 0;
 }
