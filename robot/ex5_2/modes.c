@@ -72,6 +72,7 @@ static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* ra
 void main_mode_loop()
 {
   reg8_table[REG8_MODE] = IMODE_IDLE;
+  radio_add_reg_callback(register_handler);
 
   while (1)
   {
