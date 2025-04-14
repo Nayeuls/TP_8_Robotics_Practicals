@@ -44,7 +44,7 @@ void motor_sin_mode()
   init_body_module(MOTOR_ADDR);
   start_pid(MOTOR_ADDR);
   set_color(4);
-  while (reg8_table[REG8_MODE] == IMODE_MOTOR_DEMO) {
+  while (reg8_table[REG8_MODE] == IMODE_MOTOR_SIN) {
     bus_set(MOTOR_ADDR, MREG_SETPOINT, DEG_TO_OUTPUT_BODY(target));
   }
   bus_set(MOTOR_ADDR, MREG_SETPOINT, DEG_TO_OUTPUT_BODY(0.0));
