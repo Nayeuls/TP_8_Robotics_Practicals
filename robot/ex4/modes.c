@@ -68,7 +68,7 @@ void main_mode_loop()
       case IMODE_MOTOR_DEMO:
         motor_demo_mode();
         break;
-      case IMODE_MOTOR_DEMO:
+      case IMODE_MOTOR_SIN:
         motor_sin_mode();
         break;
       default:
