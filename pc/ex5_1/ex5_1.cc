@@ -3,7 +3,7 @@
 #include "robot.h"
 #include "utils.h"
 #include "regdefs.h"
-#include "../../robot/ex5/modes.h"
+#include "../../robot/ex5_1/modes.h"
 #include <math.h>
 
 const uint8_t RADIO_CHANNEL = 201;         ///< robot radio channel
