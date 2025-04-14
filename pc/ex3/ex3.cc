@@ -39,7 +39,7 @@ int main()
   while(!kbhit()){
     // Register display demo
     display_multibyte_register(regs, 0);
-    sleep(500); // wait 0.5 second
+    Sleep(500); // wait 0.5 second
   }
 
 
