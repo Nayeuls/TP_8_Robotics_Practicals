@@ -25,9 +25,9 @@ int main()
 
     float freq, amplitude;
 
-    regs.set_reg_b(3, 123);
+    regs.set_reg_b(3, 'a');
     Sleep(1000);
-    std::cout << +regs.get_reg_b(4) << std::endl;
+    std::cout << regs.get_reg_b(4) << std::endl;
 
     // while(!kbhit()) {
     //     // for(uint8_t i = 0; i < N_MOTORS; i++) {
