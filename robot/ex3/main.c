@@ -1,45 +1,44 @@
-#include "hardware.h"
-#include "module.h"
-#include "robot.h"
+// #include "hardware.h"
+// #include "module.h"
+// #include "robot.h"
 
-const uint8_t MOTOR_ADDR = 21;
+// const uint8_t MOTOR_ADDR = 21;
 
-int main(void)
-{
-  int8_t pos;
+// int main(void)
+// {
+//   int8_t pos;
 
-  hardware_init();
+//   hardware_init();
   
-  // Changes the color of the led (red) to show the boot
-  set_color_i(4, 0);
+//   // Changes the color of the led (red) to show the boot
+//   set_color_i(4, 0);
 
-  // Initialises the body module with the specified address (but do not start
-  // the PD controller)
-  init_body_module(MOTOR_ADDR);
+//   // Initialises the body module with the specified address (but do not start
+//   // the PD controller)
+//   init_body_module(MOTOR_ADDR);
   
-  // And then... do this
-  while (1) { // set the leds depending on the position of the motor
-    pos = bus_get(MOTOR_ADDR, MREG_POSITION); // get the MREG_POSITION register value of the motor that is at the address MOTOR_ADDR on the bus
-    if (pos > 0) {
-      set_rgb(pos, 32, 0);
-    } else {
-      pos = -pos;
-      set_rgb(0, 32, pos);
-    }
-  }
+//   // And then... do this
+//   while (1) { // set the leds depending on the position of the motor
+//     pos = bus_get(MOTOR_ADDR, MREG_POSITION); // get the MREG_POSITION register value of the motor that is at the address MOTOR_ADDR on the bus
+//     if (pos > 0) {
+//       set_rgb(pos, 32, 0);
+//     } else {
+//       pos = -pos;
+//       set_rgb(0, 32, pos);
+//     }
+//   }
 
-  return 0;
-}
+//   return 0;
+// }
 
 
-/*
 #include "hardware.h"
 #include "module.h"
 #include "robot.h"
 #include "registers.h"
 
 #define NB_DOF 4
-const uint8_t MOTOR_ADDR[NB_DOF] = TO BE DEFINED; // addresses of the motors
+const uint8_t MOTOR_ADDR[NB_DOF] = {21U, 72U, 73U, 74U}; // addresses of the motors
 static int8_t pos[NB_DOF]; // array to store the position of the motors
 
 static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* radio_data)
@@ -60,12 +59,10 @@ static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* ra
 
 int main(void)
 {
-  if(NB_DOF > MAX_MB_SIZE){
-    print("Error: NB_DOF is greater than MAX_MB_SIZE\n"); // check with assistant ???
-  }
 
   hardware_init();
-  
+  radio_add_reg_callback(register_handler);
+
   // Changes the color of the led (red) to show the boot
   set_color_i(4, 0);
 
@@ -84,4 +81,3 @@ int main(void)
 
   return 0;
 }
-*/
