@@ -3,6 +3,8 @@
 
 #define REG8_FREQ 2
 #define REG8_AMPLITUDE 3
+#define FREQ_MAX 2.0
+#define AMPLITUDE_MAX 60.0
 
 /// Idle mode: do nothing
 #define IMODE_IDLE          0

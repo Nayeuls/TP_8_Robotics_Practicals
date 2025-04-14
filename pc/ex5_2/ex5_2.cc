@@ -30,8 +30,8 @@ int main()
         if (freq != 0) {
             std::cout << "Enter amplitude: ";
             std::cin >> amplitude;
-            regs.set_reg_b(REG8_FREQ, freq);
-            regs.set_reg_b(REG8_AMPLITUDE, amplitude);
+            regs.set_reg_b(REG8_FREQ, ENCODE_PARAM_8(freq, 0.0, FREQ_MAX));
+            regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(amplitude, 0.0, AMPLITUDE_MAX));
         }
     }
 

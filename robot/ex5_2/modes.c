@@ -57,11 +57,11 @@ static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* ra
   
   if(operation == ROP_WRITE_8) {
       if (address == REG8_FREQ) {
-        freq = DECODE_PARAM_8(radio_data->byte, 0.0, 2.0); // Decode the frequency to a float value
+        freq = DECODE_PARAM_8(radio_data->byte, 0.0, FREQ_MAX); // Decode the frequency to a float value
         return TRUE;
       }
       if (address == REG8_AMPLITUDE) {
-        amplitude = DECODE_PARAM_8(radio_data->byte, 0.0, 60.0); // Decode the amplitude to a float value
+        amplitude = DECODE_PARAM_8(radio_data->byte, 0.0, AMPLITUDE_MAX); // Decode the amplitude to a float value
         return TRUE;
       }
   }
