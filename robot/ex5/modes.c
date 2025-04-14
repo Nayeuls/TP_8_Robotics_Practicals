@@ -8,7 +8,7 @@
 const float FREQ = 1.0;   // Hz
 const uint8_t MOTOR_ADDR = 21;
 
-void sine_leddemo_mode()
+void sine_leddemo_mode(void)
 {
   uint32_t dt, cycletimer;
   float my_time, delta_t, l;
@@ -26,7 +26,7 @@ void sine_leddemo_mode()
 
     // Calculates the sine wave
     l = 32 * sin(M_TWOPI * FREQ * my_time);
-    l_rounded = (int8_t) l;
+    // l_rounded = (int8_t) l;
 
     // Outputs the sine wave to the LED
     if (l >= 0) {
@@ -44,7 +44,7 @@ void sine_leddemo_mode()
   set_color(2);
 }
 
-void sine_motor_mode()
+void sine_motor_mode(void)
 {
   init_body_module(MOTOR_ADDR);
   start_pid(MOTOR_ADDR);
