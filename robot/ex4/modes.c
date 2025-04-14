@@ -6,7 +6,7 @@
 #include "hardware.h"
 
 const uint8_t MOTOR_ADDR = 21;
-int8_t target = 0;
+volatile static int8_t target = 0;
 
 
 void motor_demo_mode()
