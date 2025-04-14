@@ -67,7 +67,9 @@ void main_mode_loop()
         break;
       case IMODE_MOTOR_DEMO:
         motor_demo_mode();
-        // motor_sin_mode();
+        break;
+      case IMODE_MOTOR_DEMO:
+        motor_sin_mode();
         break;
       default:
         reg8_table[REG8_MODE] = IMODE_IDLE;

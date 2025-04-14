@@ -7,6 +7,8 @@
 /// Motor move mode
 #define IMODE_MOTOR_DEMO    1
 
+#define IMODE_MOTOR_SIN     2
+
 /// The main loop for mode switching
 void main_mode_loop(void);
 
