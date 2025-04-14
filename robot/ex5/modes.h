@@ -5,10 +5,10 @@
 #define IMODE_IDLE          0
 
 /// Motor move mode
-#define IMODE_MOTOR_DEMO    1
+#define IMODE_LED_DEMO    1
 
 /// Sine wave demo
-#define IMODE_SINE_DEMO     2
+#define IMODE_SINMOTOR_DEMO     2
 
 /// The main loop for mode switching
 void main_mode_loop(void);
