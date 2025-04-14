@@ -2,6 +2,8 @@
 #include "hardware.h"
 #include "registers.h"
 
+#define PROGRAM 1
+
 int main(void)
 {
   int8_t i;
@@ -9,7 +11,7 @@ int main(void)
   hardware_init();
   reg32_table[REG32_LED] = LED_MANUAL;  // manual LED control
 
-  while (1) {
+  while (PROGRAM == 0) {
     for (i = 0; i < 127; i++) {
       set_rgb(i, 0, 0);
       pause(TEN_MS);
@@ -35,7 +37,7 @@ int main(void)
       pause(TEN_MS);
     }
   }
-  while (1) {
+  while (PROGRAM == 1) {
     set_rgb(0, 127, 0);   // LED verte allumée
     pause(500);           // pause de 500 ms
     set_rgb(0, 0, 0);     // LED éteinte
