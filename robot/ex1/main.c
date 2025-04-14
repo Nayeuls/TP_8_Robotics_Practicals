@@ -39,9 +39,9 @@ int main(void)
   }
   while (PROGRAM == 1) {
     set_rgb(0, 127, 0);   // LED verte allumée
-    pause(500);           // pause de 500 ms
+    pause(50 * TEN_MS);           // pause de 500 ms
     set_rgb(0, 0, 0);     // LED éteinte
-    pause(500);           // pause de 500 ms
+    pause(50 * TEN_MS);           // pause de 500 ms
   }
   return 0;
 }
