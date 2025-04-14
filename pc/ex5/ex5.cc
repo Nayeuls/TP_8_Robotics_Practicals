@@ -21,17 +21,11 @@ int main()
     reboot_head(regs);
   
     regs.set_reg_b(REG8_MODE, IMODE_IDLE); // Set mode to idle
-    while (!kbhit()){
-        // Mode demo
-        regs.set_reg_b(REG8_MODE, IMODE_MOTOR_DEMO); // Set mode to motor demo
-    }
+    regs.set_reg_b(REG8_MODE, IMODE_MOTOR_DEMO); // Set mode to motor demo
     ext_key();
-    while (!kbhit()){
-        // Mode sin
-        regs.set_reg_b(REG8_MODE, IMODE_MOTOR_SIN); // Set mode to sin demo
-    }
-    
-    regs.set_reg_b(REG8_MODE,0); // Set mode to idle
+    regs.set_reg_b(REG8_MODE, IMODE_MOTOR_SIN); // Set mode to sin demo
+    ext_key();
+    regs.set_reg_b(REG8_MODE, IMODE_IDLE); // Set mode to idle
     regs.close();
     return 0;
 }
