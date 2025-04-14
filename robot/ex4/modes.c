@@ -9,7 +9,7 @@ const uint8_t MOTOR_ADDR = 21;
 volatile static int8_t target = 0;
 
 
-void motor_demo_mode()
+void motor_demo_mode(void)
 {
   init_body_module(MOTOR_ADDR);
   start_pid(MOTOR_ADDR);
@@ -39,7 +39,7 @@ static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* ra
   return FALSE;
 }
 
-void motor_sin_mode()
+void motor_sin_mode(void)
 {
   init_body_module(MOTOR_ADDR);
   start_pid(MOTOR_ADDR);
