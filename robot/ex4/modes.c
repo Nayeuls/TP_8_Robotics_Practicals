@@ -31,7 +31,7 @@ static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* ra
 {
   
   if(operation == ROP_WRITE_8) {
-      if (address == 0) {
+      if (address == 2) {
         target= radio_data->byte;
         return TRUE;
       }

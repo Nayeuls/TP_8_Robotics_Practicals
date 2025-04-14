@@ -21,10 +21,13 @@ int main()
   
     regs.set_reg_b(REG8_MODE,0); // Set mode to idle
     while (!kbhit()){
+        // Mode demo
         regs.set_reg_b(REG8_MODE,1); // Set mode to motor demo
     }
+    ext_key(); // Set mode to motor demo
     while (!kbhit()){
-        regs.set_reg_b(0, 40*(sin(2*M_PI*time_d())));  // sine wave at 1 Hz (takes rad)
+        // Mode is already motor demo
+        regs.set_reg_b(2, 40*(sin(2*M_PI*time_d())));  // sine wave at 1 Hz (takes rad)
     }
     
     regs.set_reg_b(REG8_MODE,0); // Set mode to idle
