@@ -66,8 +66,9 @@ void sine_motor_mode()
 
     // Calculates the sine wave
     l = 32 * sin(M_TWOPI * FREQ * my_time);
+    l_rounded = (int8_t) l;
 
-    bus_set(MOTOR_ADDR, MREG_SETPOINT, DEG_TO_OUTPUT_BODY(l));
+    bus_set(MOTOR_ADDR, MREG_SETPOINT, DEG_TO_OUTPUT_BODY(l_rounded));
 
     // Make sure there is some delay, so that the timer output is not zero
     pause(ONE_MS);
