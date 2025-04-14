@@ -34,7 +34,7 @@ int main()
             regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(amplitude, 0.0, AMPLITUDE_MAX));
         }
     }
-
+    regs.set_reg_b(REG8_MODE, IMODE_IDLE); // Set mode to idle
     regs.close();
     return 0;
 }
