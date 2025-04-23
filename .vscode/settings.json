@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "hardware.h": "c",
+        "registers.h": "c"
+    }
+}
