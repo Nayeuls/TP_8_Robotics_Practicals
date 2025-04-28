@@ -106,7 +106,7 @@ int main()
     Sleep(10);
   }
 
-  set_regs(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
+  set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
   
   // Clears the console input buffer (as kbhit() doesn't)
   FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
