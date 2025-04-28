@@ -40,8 +40,6 @@ int main(void)
 {
   hardware_init();
   registers_init();
-
-  set_color(2);
   
   // Registers the register handler callback function
   radio_add_reg_callback(register_handler); // when a register is read or written, the function register_handler is called
@@ -50,7 +48,6 @@ int main(void)
     init_body_module(MOTOR_ADDR[i]);
     start_pid(MOTOR_ADDR[i]);
     set_reg_value_dw(MOTOR_ADDR[i], MREG32_LED, 0);
-
   }
 
   uint32_t dt, cycletimer;
