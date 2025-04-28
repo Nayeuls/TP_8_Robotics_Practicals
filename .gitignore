@@ -4,3 +4,4 @@
 *.o.d
 *.hex
 *.map
+*.exe
