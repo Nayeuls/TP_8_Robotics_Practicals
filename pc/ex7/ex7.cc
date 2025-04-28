@@ -66,14 +66,15 @@ int main()
   set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
   set_reg_b(regs, REG8_PHASE_LAG, ENCODE_PARAM_8(phase_lag, 0.5, 1.5));
 
+  regs.set_reg_b(REG8_MODE, IMODE_SINMOTOR_DEMO);
 
   std::cout << "Press any key to start: ";
   ext_key();
   set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(amplitude, 0.0, AMPLITUDE_MAX));
 
-  regs.set_reg_b(REG8_MODE, IMODE_SINMOTOR_DEMO);
+  
 
-  string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq);
+  string file_name = "Phase_lag_" + std::to_string(phase_lag) + "_Amplitude_" + std::to_string(amplitude) + "_frequency_" + std::to_string(freq) + "_time_" + std::to_string((int)time_d());
   // Reads its coordinates (if (id == -1), then no spot is detected)
   std::ofstream csv_file(file_name);
   if (csv_file.fail()) {
@@ -118,6 +119,7 @@ int main()
   set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
 
   regs.set_reg_b(REG8_MODE, IMODE_IDLE); // Set mode to idle
+  Sleep(100);
   
   // Clears the console input buffer (as kbhit() doesn't)
   FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
