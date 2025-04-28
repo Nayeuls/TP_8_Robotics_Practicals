@@ -11,6 +11,7 @@ const uint8_t MOTOR_ADDR[5] = {25, 22, 24, 26, 5 };
 volatile static float freq = 1;
 volatile static float amplitude = 0;
 volatile static float phase_lag = 1;
+volatile static float offset = 0;
 
 /* Register callback function, handles some new registers on the radio.
  * All these registers are of course completely useless, but it demonstrates how
@@ -30,6 +31,10 @@ static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* ra
       }
       if (address == REG8_PHASE_LAG) {
         phase_lag = DECODE_PARAM_8(radio_data->byte, 0.5, 1.5); // Decode the amplitude to a float value
+        return TRUE;
+      }
+      if (address == REG8_OFFSET) {
+        offset = DECODE_PARAM_8(radio_data->byte, -OFFSET_ABS_MAX, OFFSET_ABS_MAX); // Decode the amplitude to a float value
         return TRUE;
       }
   }
@@ -71,7 +76,7 @@ int main(void)
 
     // Calculates the sine wave
     for(int i = 0; i < 5; i++){
-      int l = amplitude * sin(M_TWOPI * (freq * my_time + i * phase_lag / 5));
+      int l = offset + amplitude * sin(M_TWOPI * (freq * my_time + i * phase_lag / 5));
       bus_set(MOTOR_ADDR[4-i], MREG_SETPOINT, DEG_TO_OUTPUT_BODY((int8_t)l));
     }
 

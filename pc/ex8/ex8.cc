@@ -71,14 +71,34 @@ int main()
 
   string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq);
 
-  while (!kbhit()) {
+  char read_key = '\0';
+  float offset = 0;
+
+  while (read_key != 27) { // ESC key) {
     uint32_t frame_time;
     // Gets the current position
     if (!trk.update(frame_time)) {
       return 1;
     }
 
+    if (kbhit()) {
+      read_key = ext_key();
+      if (read_key == 27) { // ESC key
+        break;
+      }
+      if (read_key == 'a') {
+        offset += amplitude / 40;
+      }
+      if (read_key == 'd') {
+        offset -= amplitude / 40;
+      }
+      if (read_key == 's') {
+        offset = 0;
+      }
+      offset = fmin(fmax(offset, -OFFSET_ABS_MAX), OFFSET_ABS_MAX);
+      set_reg_b(regs, REG8_, ENCODE_PARAM_8(amplitude, -OFFSET_ABS_MAX, OFFSET_ABS_MAX));
 
+    }
 
     double x, y;
     cout.precision(2);
