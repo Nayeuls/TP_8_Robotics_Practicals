@@ -9,6 +9,7 @@
 #include "robot.h"
 #include <math.h>
 #include <fstream>
+#include <iomanip>
 #include "../../robot/ex7/constants.h"
 
 
@@ -100,7 +101,11 @@ int main()
 
     if (id != -1 && trk.get_pos(id, x, y)) {
       cout << "(" << fixed << x << ", " << y << ")" << " m      \r";
+<<<<<<< HEAD
       csv_file << setw(15) << fixed << time_d() - start_time << "," << x << "," << y << endl;
+=======
+      csv_file << setprecision(15) << fixed << time_d() - start_time << "," << x << "," << y << endl;
+>>>>>>> 280f35f542fd69b477a75dbe601297c099625302
     } else {
       cout << "(not detected)" << '\r';
     }

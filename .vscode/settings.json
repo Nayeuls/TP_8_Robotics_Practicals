@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "hardware.h": "c",
-        "registers.h": "c"
+        "registers.h": "c",
+        "ios": "cpp"
     }
 }
