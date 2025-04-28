@@ -4,8 +4,11 @@
 #include <windows.h>
 #include "trkcli.h"
 #include "utils.h"
+#include "regdefs.h"
 #include "remregs.h"
 #include "robot.h"
+#include <math.h>
+#include <fstream>
 #include "../../robot/ex7/constants.h"
 
 
@@ -35,6 +38,10 @@ int main()
     return 1;
   }
 
+  float freq = 1;
+  float amplitude = 0;
+  float phase_lag = 1;
+
   std::cout << "Enter frequency: ";
   std::cin >> freq;
   std::cout << "Enter amplitude: ";
@@ -43,17 +50,14 @@ int main()
   std::cin >> phase_lag;
   regs.set_reg_b(REG8_FREQ, ENCODE_PARAM_8(freq, 0.0, FREQ_MAX));
   regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
-  regs.set_reg_b(REG8_PHASE_LAG, ENCODE_PARAM_8(0, 0.5, 1.5));
+  regs.set_reg_b(REG8_PHASE_LAG, ENCODE_PARAM_8(phase_lag, 0.5, 1.5));
 
 
   std::cout << "Presser une touche pour commencer: ";
-  while (!kbhit()) {
-  }
+  ext_key();
   regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(amplitude, 0.0, AMPLITUDE_MAX));
 
-  string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq)
-
-
+  string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq);
 
   while (!kbhit()) {
     uint32_t frame_time;
@@ -71,8 +75,8 @@ int main()
     int id = trk.get_first_id();
     
     // Reads its coordinates (if (id == -1), then no spot is detected)
-    ofstream csv_file("output.csv");
-    if csv_file.fail() {
+    std::ofstream csv_file(file_name);
+    if (csv_file.fail()) {
       cout << "Error opening file" << endl;
       return 1;
     }
@@ -89,6 +93,8 @@ int main()
     // Waits 10 ms before getting the info next time (anyway the tracking runs at 15 fps)
     Sleep(10);
   }
+
+  regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
   
   // Clears the console input buffer (as kbhit() doesn't)
   FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));

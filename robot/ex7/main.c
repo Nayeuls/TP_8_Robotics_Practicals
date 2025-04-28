@@ -1,5 +1,9 @@
+#include "config.h"
+#include "robot.h"
+#include "module.h"
 #include "hardware.h"
 #include "registers.h"
+#include "constants.h"
 
 const uint8_t MOTOR_ADDR[5] = {25, 22, 24, 26, 5 };
 
@@ -65,16 +69,12 @@ int main(void)
     // Calculates the sine wave
     for(int i = 0; i < 5; i++){
       int l = amplitude * sin(M_TWOPI * (freq * my_time + i * phase_lag / 5));
-      bus_set(MOTOR_ADDR[i], MREG_SETPOINT, DEG_TO_OUTPUT_BODY((int8_t)l));
+      bus_set(MOTOR_ADDR[4-i], MREG_SETPOINT, DEG_TO_OUTPUT_BODY((int8_t)l));
     }
 
     // Make sure there is some delay, so that the timer output is not zero
     pause(ONE_MS);
   }
-
-  bus_set(MOTOR_ADDR, MREG_SETPOINT, DEG_TO_OUTPUT_BODY(0.0));
-  pause(ONE_SEC);
-  bus_set(MOTOR_ADDR, MREG_MODE, MODE_IDLE);
 
   return 0;
 }
