@@ -121,7 +121,6 @@ int main()
     if (id != -1 && trk.get_pos(id, x, y)) {
       cout << "(" << fixed << x << ", " << y << ")" << " m      \r";
       csv_file << x << "," << y << endl;
-      csv_file.flush();
     } else {
       cout << "(not detected)" << '\r';
     }
