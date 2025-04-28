@@ -50,6 +50,9 @@ int main(void)
     set_reg_value_dw(MOTOR_ADDR[i], MREG32_LED, 0);
   }
 
+  reg32_table[REG32_LED] = LED_MANUAL; // Set the LED to manual mode
+  set_rgb(255, 255, 255); // Set the RGB LED to off
+
   uint32_t dt, cycletimer;
   float my_time, delta_t;
 
