@@ -8,5 +8,4 @@
 #define AMPLITUDE_MAX 60.0
 
 
-
 #endif // __CONSTANTS_H

@@ -44,6 +44,7 @@ int main()
   // Reboots the head microcontroller to make sure it is always in the same state
   reboot_head(regs);
 
+
   // Connects to the tracking server
   if (!trk.connect(TRACKING_PC_NAME, TRACKING_PORT)) {
     return 1;
