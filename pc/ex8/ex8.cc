@@ -65,16 +65,28 @@ int main()
   set_reg_b(regs, REG8_PHASE_LAG, ENCODE_PARAM_8(phase_lag, 0.5, 1.5));
 
 
-  std::cout << "Presser une touche pour commencer: ";
+  std::cout << "Press any key to start: ";
   ext_key();
   set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(amplitude, 0.0, AMPLITUDE_MAX));
 
   string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq);
+  // Reads its coordinates (if (id == -1), then no spot is detected)
+  std::ofstream csv_file(file_name);
+  if (csv_file.fail()) {
+    cerr << "Error opening file" << endl;
+    return 1;
+  }
 
   char read_key = '\0';
   float offset = 0;
 
-  while (read_key != 27) { // ESC key) {
+  std::cout << "Press esc to stop" << endl;
+  std::cout << "Press a to turn left" << endl;
+  std::cout << "Press s to go straight" << endl;
+  std::cout << "Press d to turn right" << endl;
+
+  while (read_key != 27) { // ESC key
+    read_key = 0;
     uint32_t frame_time;
     // Gets the current position
     if (!trk.update(frame_time)) {
@@ -105,13 +117,6 @@ int main()
     
     // Gets the ID of the first spot (the tracking system supports multiple ones)
     int id = trk.get_first_id();
-    
-    // Reads its coordinates (if (id == -1), then no spot is detected)
-    std::ofstream csv_file(file_name);
-    if (csv_file.fail()) {
-      cout << "Error opening file" << endl;
-      return 1;
-    }
 
     if (id != -1 && trk.get_pos(id, x, y)) {
       cout << "(" << fixed << x << ", " << y << ")" << " m      \r";
