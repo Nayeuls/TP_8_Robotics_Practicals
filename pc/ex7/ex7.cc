@@ -76,8 +76,11 @@ int main()
     cerr << "Error opening file" << endl;
     return 1;
   }
+  csv_file << "time,x,y" << endl;
 
   std::cout << "Press any key to stop: " << endl;
+  double start_time = time_d();
+
   while (!kbhit()) {
     uint32_t frame_time;
     // Gets the current position
@@ -97,7 +100,7 @@ int main()
 
     if (id != -1 && trk.get_pos(id, x, y)) {
       cout << "(" << fixed << x << ", " << y << ")" << " m      \r";
-      csv_file << x << "," << y << endl;
+      csv_file << set_precision(15) << fixed << time_d() - start_time << "," << x << "," << y << endl;
     } else {
       cout << "(not detected)" << '\r';
     }
