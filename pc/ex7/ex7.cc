@@ -66,8 +66,15 @@ int main()
     int id = trk.get_first_id();
     
     // Reads its coordinates (if (id == -1), then no spot is detected)
+    ofstream csv_file("output.csv");
+    if csv_file.fail() {
+      cout << "Error opening file" << endl;
+      return 1;
+    }
+
     if (id != -1 && trk.get_pos(id, x, y)) {
       cout << "(" << fixed << x << ", " << y << ")" << " m      \r";
+      csv_file << x << "," << y << endl;
     } else {
       cout << "(not detected)" << '\r';
     }
