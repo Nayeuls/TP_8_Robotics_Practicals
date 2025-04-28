@@ -58,8 +58,6 @@ int main()
 
   std::cout << "Enter frequency: ";
   std::cin >> freq;
-    regs.set_reg_dw(REG32_LED, 0xfffffff); // Set the LED to manual mode
-
   std::cout << "Enter amplitude: ";
   std::cin >> amplitude;
   std::cout << "Enter phase lag: ";
@@ -72,6 +70,8 @@ int main()
   std::cout << "Press any key to start: ";
   ext_key();
   set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(amplitude, 0.0, AMPLITUDE_MAX));
+
+  regs.set_reg_b(REG8_MODE, IMODE_SINMOTOR_DEMO);
 
   string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq);
   // Reads its coordinates (if (id == -1), then no spot is detected)
@@ -116,6 +116,8 @@ int main()
   }
 
   set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
+
+  regs.set_reg_b(REG8_MODE, IMODE_IDLE); // Set mode to idle
   
   // Clears the console input buffer (as kbhit() doesn't)
   FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));

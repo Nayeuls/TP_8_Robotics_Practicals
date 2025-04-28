@@ -36,22 +36,13 @@ static int8_t register_handler(uint8_t operation, uint8_t address, RadioData* ra
   return FALSE;
 }
 
-int main(void)
+void moving(void)
 {
-  hardware_init();
-  registers_init();
-  
-  // Registers the register handler callback function
-  radio_add_reg_callback(register_handler); // when a register is read or written, the function register_handler is called
-  
   for(int i=0; i < 5; i++){
     init_body_module(MOTOR_ADDR[i]);
     start_pid(MOTOR_ADDR[i]);
     set_reg_value_dw(MOTOR_ADDR[i], MREG32_LED, 0);
   }
-
-  reg32_table[REG32_LED] = LED_MANUAL; // Set the LED to manual mode
-  set_rgb(255, 255, 255); // Set the RGB LED to off
 
   uint32_t dt, cycletimer;
   float my_time, delta_t;
@@ -61,7 +52,7 @@ int main(void)
 
   // Keeps the LED blinking in green to demonstrate that the main program is
   // still running and registers are processed in background.
-  while (1) {
+  do {
 
     // Calculates the delta_t in seconds and adds it to the current time
     dt = getElapsedSysTICs(cycletimer);
@@ -77,7 +68,36 @@ int main(void)
 
     // Make sure there is some delay, so that the timer output is not zero
     pause(ONE_MS);
+  } while (reg8_table[REG8_MODE] == IMODE_SINMOTOR_DEMO);
+
+  for(int i=0; i < 5; i++){
+    bus_set(MOTOR_ADDR[i], MREG_MODE, MODE_IDLE);
   }
 
-  return 0;
+}
+
+int main(void)
+{
+  hardware_init();
+  registers_init();
+  
+  // Registers the register handler callback function
+  radio_add_reg_callback(register_handler); // when a register is read or written, the function register_handler is called
+
+  reg32_table[REG32_LED] = LED_MANUAL; // Set the LED to manual mode
+  set_rgb(255, 255, 255); // Set the RGB LED to off
+
+  while (1)
+  {
+    switch(reg8_table[REG8_MODE])
+    {
+      case IMODE_IDLE:
+        break;
+      case IMODE_SINMOTOR_DEMO:
+        moving();
+        break;
+      default:
+        reg8_table[REG8_MODE] = IMODE_IDLE;
+    }
+  }
 }
