@@ -55,8 +55,11 @@ int main()
   float amplitude = 0;
   float phase_lag = 1;
 
+
   std::cout << "Enter frequency: ";
   std::cin >> freq;
+    regs.set_reg_dw(REG32_LED, 0xfffffff); // Set the LED to manual mode
+
   std::cout << "Enter amplitude: ";
   std::cin >> amplitude;
   std::cout << "Enter phase lag: ";
@@ -64,7 +67,7 @@ int main()
   set_reg_b(regs, REG8_FREQ, ENCODE_PARAM_8(freq, 0.0, FREQ_MAX));
   set_reg_b(regs, REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
   set_reg_b(regs, REG8_PHASE_LAG, ENCODE_PARAM_8(phase_lag, 0.5, 1.5));
-  regs.set_reg_value_dw(REG32_LED, 0xfffffff); // Set the LED to manual mode
+
 
   std::cout << "Press any key to start: ";
   ext_key();
@@ -101,11 +104,7 @@ int main()
 
     if (id != -1 && trk.get_pos(id, x, y)) {
       cout << "(" << fixed << x << ", " << y << ")" << " m      \r";
-<<<<<<< HEAD
-      csv_file << setw(15) << fixed << time_d() - start_time << "," << x << "," << y << endl;
-=======
       csv_file << setprecision(15) << fixed << time_d() - start_time << "," << x << "," << y << endl;
->>>>>>> 280f35f542fd69b477a75dbe601297c099625302
     } else {
       cout << "(not detected)" << '\r';
     }
