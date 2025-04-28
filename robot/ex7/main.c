@@ -41,7 +41,7 @@ int main(void)
   hardware_init();
   registers_init();
 
-  set_color(2);
+  set_rgb(255, 255, 255);
   
   // Registers the register handler callback function
   radio_add_reg_callback(register_handler); // when a register is read or written, the function register_handler is called
