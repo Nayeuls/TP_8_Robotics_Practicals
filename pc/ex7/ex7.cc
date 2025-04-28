@@ -6,6 +6,8 @@
 #include "utils.h"
 #include "remregs.h"
 #include "robot.h"
+#include "../../robot/ex7/constants.h"
+
 
 using namespace std;
 
@@ -37,8 +39,11 @@ int main()
   std::cin >> freq;
   std::cout << "Enter amplitude: ";
   std::cin >> amplitude;
+  std::cout << "Enter phase lag: ";
+  std::cin >> phase_lag;
   regs.set_reg_b(REG8_FREQ, ENCODE_PARAM_8(freq, 0.0, FREQ_MAX));
   regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
+  regs.set_reg_b(REG8_PHASE_LAG, ENCODE_PARAM_8(0, 0.5, 1.5));
 
 
   std::cout << "Presser une touche pour commencer: ";
@@ -49,7 +54,7 @@ int main()
   string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq)
 
 
-  
+
   while (!kbhit()) {
     uint32_t frame_time;
     // Gets the current position
