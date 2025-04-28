@@ -33,12 +33,31 @@ int main()
     return 1;
   }
 
+  std::cout << "Enter frequency: ";
+  std::cin >> freq;
+  std::cout << "Enter amplitude: ";
+  std::cin >> amplitude;
+  regs.set_reg_b(REG8_FREQ, ENCODE_PARAM_8(freq, 0.0, FREQ_MAX));
+  regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(0, 0.0, AMPLITUDE_MAX));
+
+
+  std::cout << "Presser une touche pour commencer: ";
+  while (!kbhit()) {
+  }
+  regs.set_reg_b(REG8_AMPLITUDE, ENCODE_PARAM_8(amplitude, 0.0, AMPLITUDE_MAX));
+
+  string file_name = string("Amplitude_") + std::to_string(amplitude) + "_frequency_" + std::to_string(freq)
+
+
+  
   while (!kbhit()) {
     uint32_t frame_time;
     // Gets the current position
     if (!trk.update(frame_time)) {
       return 1;
     }
+
+
 
     double x, y;
     cout.precision(2);
@@ -49,13 +68,11 @@ int main()
     // Reads its coordinates (if (id == -1), then no spot is detected)
     if (id != -1 && trk.get_pos(id, x, y)) {
       cout << "(" << fixed << x << ", " << y << ")" << " m      \r";
-      x = x*255/6;
-      y = y*255/2;
-      uint32_t rgb = ((uint32_t)(x) << 16) | ((uint32_t)(64) << 8) | (uint32_t)(y);
-      regs.set_reg_dw(0, rgb); // adress 0 for uint32 not used anywhere else
     } else {
       cout << "(not detected)" << '\r';
     }
+
+
     
     // Waits 10 ms before getting the info next time (anyway the tracking runs at 15 fps)
     Sleep(10);
